@@ -92,7 +92,45 @@ public class Gestion
     }
 
     //***** EJERCICIOS *****
-    public Set<String> pregunta1() { 
+    public Set<String> pregunta1() {
+        Map<String, Integer> mapa = new HashMap();
+        for (Persona p : personas) {            
+            String pais = p.getPais();
+            if (mapa.containsKey(pais)) {
+                
+                int valor = mapa.get(pais);
+                mapa.put(pais, valor + 1);
+                
+            } else {                
+                mapa.put(pais, 1);
+            }
+        }
+        List<Auxiliar1> preg1 = new ArrayList();        
+        Set llaves = mapa.keySet();        
+        Iterator it = llaves.iterator();
+        while (it.hasNext()) {            
+            String k = (String) it.next();
+            int valor = (int) mapa.get(k);
+            Auxiliar1 a = new Auxiliar1(k, valor);
+            preg1.add(a);
+        }
+        for (int i = 0; i < preg1.size(); i++) {
+            for (int j = i+1; j < preg1.size(); j++) {
+                if (true) {
+                    
+                }
+            }
+        }
+    }
+    public List<Persona> pregunta2(String flag) { 
+    
+    
+    }
+    public List pregunta3( ) { 
+    
+    
+    }
+    public Persona pregunta4( ) { 
     
     
     }
