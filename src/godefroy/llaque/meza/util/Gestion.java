@@ -36,44 +36,54 @@ public class Gestion
         this.personas.add(p);
     }
 
-    public void leerArchivo(String archivo)
+    public List<Persona> leerArchivo(String archivo)
     {
         File f = new File(archivo);
         Scanner sc;
+        Persona p;
+        List<Persona> l=new ArrayList<>();
         try
         {
             sc = new Scanner(f);
             while (sc.hasNext())
             {
+                p=new Persona();
                 String linea = sc.nextLine();
                 String[] datos = linea.split("::");
-                String nombre = datos[0];
-                String telef = datos[1];
-                String correo = datos[2];
-                String empresa = datos[3];
-                int pin = Integer.parseInt(datos[4]);
-                String pais = datos[5];
+                p.setNombre(datos[0]);
+                //String nombre = datos[0];
+                p.setTelef(datos[1]);
+                //String telef = datos[1];
+                p.setCorreo(datos[2]);
+                //String correo = datos[2];
+                p.setEmpresa(datos[3]);
+                //String empresa = datos[3];
+                p.setPin(Integer.parseInt(datos[4]));
+                //int pin = Integer.parseInt(datos[4]);
+                p.setPais(datos[5]);
+                //String pais = datos[5];
                 
                 String x = datos[6].replace("$", "");
                 String y = x.replace(",", "");
-                float ahorro = Float.parseFloat(y);
+                p.setAhorro(Float.parseFloat(y));
+                //float ahorro = Float.parseFloat(y);
                 
-                
-                String clave = datos[7];
+                p.setClave(datos[7]);
+                //String clave = datos[7];                
                 String texto = datos[8];
                 int secuencia = Integer.parseInt(datos[9]);
                 
-                int largo = String.valueOf(pin).length();
+                int largo = String.valueOf(p.getPin()).length();
                 
                 if ( largo%2== 0) {
-                    Par par= new Par(secuencia, nombre, telef, correo, empresa, pin, pais, ahorro, clave);
+                    Par par= new Par(secuencia, p.getNombre(), p.getTelef(), p.getCorreo(), p.getEmpresa(), p.getPin(), p.getPais(), p.getAhorro(), p.getClave());
                     this.agregarReferencia(par);
                 }else{
-                    Impar impar = new Impar(secuencia, nombre, telef, correo, empresa, pin, pais, ahorro, clave);
+                    Impar impar = new Impar(secuencia, p.getNombre(), p.getTelef(), p.getCorreo(), p.getEmpresa(), p.getPin(), p.getPais(), p.getAhorro(), p.getClave());
                     this.agregarReferencia(impar);
                 }
 
-                
+                l.add(p);
 
             }
         }
@@ -81,6 +91,7 @@ public class Gestion
         {
             System.out.println("Tu archivo no se ha leido " + ex.getMessage());
         }
+        return l;
     }
 
     public void imprimirDatos()
